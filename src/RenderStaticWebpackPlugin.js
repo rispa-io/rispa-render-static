@@ -1,6 +1,10 @@
 import path from 'path'
-import fs from 'fs'
+import fs from 'fs-extra'
+import createDebug from 'debug'
 import createRender from './render'
+
+const log = createDebug('rispa:info:render-static')
+const logError = createDebug('rispa:error:render-static')
 
 const statsOptions = {
   chunkModules: true,
@@ -14,23 +18,50 @@ const statsOptions = {
 
 class RenderStaticWebpackPlugin {
   constructor({ routes = [], outputPath = '' }) {
-    this.routes = routes
+    this.routes = routes.map(route => {
+      if (typeof route === 'string') {
+        return {
+          location: route,
+          path: route,
+        }
+      }
+      return route
+    }).map(route => {
+      if (route.path.endsWith('/')) {
+        route.path += 'index.html'
+      } else if (!route.path.endsWith('.html')) {
+        route.path += '.html'
+      }
+      return route
+    })
+
     this.outputPath = outputPath
   }
 
-  apply = compiler => compiler.plugin('done', this.render)
+  apply = compiler => compiler.plugin('done', this.onDone)
 
-  render = statsWebpack => {
+  onDone = statsWebpack => {
     const stats = statsWebpack.toJson(statsOptions)
-    const renderPage = createRender(stats)
-    const pages = this.routes.map(location => ({
-      path: `${location}${location.endsWith('/') ? 'index' : ''}.html`,
-      content: renderPage(location),
-    }))
+    const renderToString = createRender(stats)
 
-    pages.forEach(page => fs.writeFileSync(
-      path.resolve(this.outputPath, `.${page.path}`), page.content
-    ))
+    this.renderRoutes(renderToString)
+  }
+
+  renderRoutes(renderToString) {
+    this.routes.forEach(route => {
+      try {
+        const content = renderToString(route.location)
+        const filePath = path.resolve(this.outputPath, `.${route.path}`)
+
+        fs.ensureDirSync(path.dirname(filePath))
+        fs.writeFileSync(filePath, content)
+
+        log(`Render route '${route.location}' to page '${route.path}'`)
+      } catch (e) {
+        logError(`Failed to render route '${route.location} to page '${route.path}''`)
+        logError(e)
+      }
+    })
   }
 
 }
