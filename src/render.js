@@ -43,20 +43,13 @@ const createAssets = stats => {
   return assets
 }
 
-const createRender = stats => location => {
+const createRender = stats => {
   const history = createHistory()
-  const store = configureStore(history, {
-    router: {
-      location: {
-        pathname: location,
-      },
-    },
-  })
+  const store = configureStore(history)
 
   const when = createWhen(store)
   const routes = getRoutes(store, when)
-
-  store.dispatch(replace(location))
+  const assets = createAssets(stats)
 
   const App = (
     <Provider store={store}>
@@ -68,21 +61,24 @@ const createRender = stats => location => {
     </Provider>
   )
 
-  reactTreeWalker(App, () => true)
+  return location => {
+    store.dispatch(replace(location))
 
-  const assets = createAssets(stats)
-  const content = ReactDOM.renderToString(App)
-  const html =
-    `<!doctype html>\n${
-      ReactDOM.renderToStaticMarkup(
-        <Html
-          assets={assets}
-          content={content}
-          initialState={JSON.stringify(store.getState())}
-        />
-      )}`
+    reactTreeWalker(App, () => true)
 
-  return html
+    const content = ReactDOM.renderToString(App)
+    const html =
+      `<!doctype html>\n${
+        ReactDOM.renderToStaticMarkup(
+          <Html
+            assets={assets}
+            content={content}
+            initialState={JSON.stringify(store.getState())}
+          />
+        )}`
+
+    return html
+  }
 }
 
 export default createRender

@@ -1,6 +1,7 @@
 import { createConfig, env } from '@webpack-blocks/webpack2'
 import config from '@rispa/config'
 import RenderStaticWebpackPlugin from '../../src/RenderStaticWebpackPlugin'
+import routes from '../../routes'
 
 export default () => createConfig([
   env('production', [
@@ -8,11 +9,7 @@ export default () => createConfig([
       plugins: [
         new RenderStaticWebpackPlugin({
           outputPath: config.outputPath,
-          paths: [
-            '/',
-            '/not-found',
-            '/test'
-          ],
+          routes,
         })
       ],
     }),

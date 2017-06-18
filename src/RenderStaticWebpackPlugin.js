@@ -13,8 +13,8 @@ const statsOptions = {
 }
 
 class RenderStaticWebpackPlugin {
-  constructor({ paths, outputPath }) {
-    this.paths = paths
+  constructor({ routes = [], outputPath = '' }) {
+    this.routes = routes
     this.outputPath = outputPath
   }
 
@@ -23,7 +23,7 @@ class RenderStaticWebpackPlugin {
   render = statsWebpack => {
     const stats = statsWebpack.toJson(statsOptions)
     const renderPage = createRender(stats)
-    const pages = this.paths.map(location => ({
+    const pages = this.routes.map(location => ({
       path: `${location}${location.endsWith('/') ? 'index' : ''}.html`,
       content: renderPage(location),
     }))
