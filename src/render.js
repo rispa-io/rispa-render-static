@@ -13,11 +13,12 @@ import {
 } from '@rispa/redux'
 import { CookiesProvider } from '@rispa/vendor/cookies'
 import getRoutes from '@rispa/routes'
+import config from '@rispa/config'
 import { flushWebpackRequireWeakIds } from '@rispa/vendor/loadable'
 import Html from './Html'
 
 const createAssets = stats => {
-  const rootDir = path.resolve(process.cwd())
+  const rootDir = config.outputPath
   const paths = flushWebpackRequireWeakIds().map(
     p => path.relative(rootDir, p).replace(/\\/g, '/')
   )
