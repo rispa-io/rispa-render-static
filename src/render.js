@@ -18,7 +18,8 @@ import { flushWebpackRequireWeakIds } from '@rispa/vendor/loadable'
 import Html from './Html'
 
 const createAssets = stats => {
-  const rootDir = config.outputPath
+  const rootDir = path.resolve(process.cwd())
+  const publicPath = config.publicPath.replace(/\/$/, '')
   const paths = flushWebpackRequireWeakIds().map(
     p => path.relative(rootDir, p).replace(/\\/g, '/')
   )
@@ -30,14 +31,14 @@ const createAssets = stats => {
 
   const assets = {
     styles: flushedAssets.stylesheets.reduce((styles, style) => {
-      const key = styles.replace(/\.css$/, '')
-      styles[key] = style
+      const key = style.replace(/\.css$/, '')
+      styles[key] = `${publicPath}/${style}`
       return styles
     }, {}),
-    javascript: flushedAssets.scripts.reduce((newScripts, script) => {
+    javascript: flushedAssets.scripts.reduce((scripts, script) => {
       const key = script.replace(/\.js$/, '')
-      newScripts[key] = script
-      return newScripts
+      scripts[key] = `${publicPath}/${script}`
+      return scripts
     }, {}),
   }
 
