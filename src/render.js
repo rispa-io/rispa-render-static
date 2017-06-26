@@ -11,10 +11,10 @@ import {
   configureStore,
   createWhen,
 } from '@rispa/redux'
-import { CookiesProvider } from '@rispa/vendor/cookies'
+import { CookiesProvider } from 'react-cookie'
 import getRoutes from '@rispa/routes'
 import config from '@rispa/config'
-import { flushWebpackRequireWeakIds } from '@rispa/vendor/loadable'
+import { flushWebpackRequireWeakIds } from 'react-loadable'
 import Html from './Html'
 
 const createAssets = stats => {
