@@ -10,7 +10,7 @@ export default () => createConfig([
         new RenderStaticWebpackPlugin({
           outputPath: config.outputPath,
           routes,
-        })
+        }),
       ],
     }),
   ]),
