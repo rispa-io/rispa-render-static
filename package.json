@@ -6,11 +6,11 @@
   "author": "dvpetrov <dvpetrov.main@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@rispa/config": "^0.1.0",
-    "@rispa/core": "^0.1.0",
-    "@rispa/webpack": "^0.1.0",
-    "@rispa/redux": "^0.1.0",
-    "@rispa/routes": "^0.1.0",
+    "@rispa/config": "^1.0.0",
+    "@rispa/core": "^1.0.0",
+    "@rispa/webpack": "^1.0.0",
+    "@rispa/redux": "^1.0.0",
+    "@rispa/routes": "^1.0.0",
     "@webpack-blocks/webpack2": "^0.4.0",
     "fs-extra": "^3.0.1",
     "debug": "^2.6.6",
@@ -27,7 +27,7 @@
     "webpack-flush-chunks": "^0.1.1"
   },
   "devDependencies": {
-    "@rispa/eslint-config": "^1.0.0"
+    "@rispa/eslint-config": "^1.1.0"
   },
   "scripts": {
     "lint": "rispa-eslint",
