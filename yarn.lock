@@ -27,9 +27,9 @@
     glob "^7.1.2"
     plop "^1.7.4"
 
-"@rispa/eslint-config@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@rispa/eslint-config/-/eslint-config-1.1.0.tgz#6c8df3b3ad6647765401dc867dbfc2f951deb5ca"
+"@rispa/eslint-config@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@rispa/eslint-config/-/eslint-config-2.0.0.tgz#4a4d0e787374e46b2daf0a642f2f5916c9e96e01"
   dependencies:
     babel-eslint "^7.2.1"
     cross-spawn "^5.1.0"
@@ -4097,7 +4097,7 @@ react-tree-walker@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-2.1.1.tgz#80ab80a0caa78f029fea39f42306b13b5d51bb8d"
 
-react@15.4.2, react@^15.0.0:
+react@15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
@@ -4105,7 +4105,7 @@ react@15.4.2, react@^15.0.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
-react@15.5.4:
+react@15.5.4, react@^15.0.0:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -4363,13 +4363,13 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.5.1, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:
     glob "^7.0.5"
 
-rimraf@~2.5.1:
+rimraf@^2.2.8, rimraf@~2.5.1:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
   dependencies:
