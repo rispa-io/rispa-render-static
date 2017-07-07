@@ -1,5 +1,6 @@
-# rispa-render-statiс
-Static site generator.
+# Rispa Render Static [![Build Status](https://api.travis-ci.org/rispa-io/rispa-render-static.svg?branch=master)](https://travis-ci.org/rispa-io/rispa-render-static)
+
+**Rispa** plugin for static site generation.
 
 Provide an array of paths to be rendered and a matching set of `*.html` files will be rendered in `/build` directory.
 
