@@ -11,7 +11,7 @@ import {
   configureStore,
   createWhen,
 } from '@rispa/redux'
-import { CookiesProvider } from 'react-cookie'
+import { CookiesProvider, Cookies } from 'react-cookie'
 import getRoutes from '@rispa/routes'
 import config from '@rispa/config'
 import { flushWebpackRequireWeakIds } from 'react-loadable'
@@ -46,11 +46,12 @@ const createAssets = stats => {
 }
 
 const createRender = stats => {
+  const cookies = new Cookies()
   const history = createHistory()
   const store = configureStore(history)
 
   const when = createWhen(store)
-  const routes = getRoutes(store, when)
+  const routes = getRoutes({ store, when, cookies })
   const assets = createAssets(stats)
 
   const App = (
