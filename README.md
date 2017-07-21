@@ -12,21 +12,22 @@ ris add rispa-render-static
 ```
 
 ### Configure
-In the root directory of the plugin contains the configuration file **routes.js**.
+In `@rispa/config` plugin, we can configure render routes.
 
 For example:
 ```js
-const routes = [
-  '/',
-  '/catalog',
-  {
-    location: '/catalog?id=1',
-    path: '/catalog/1.html'
+const config = {
+  ...,
+  '@rispa/render-static': {
+    routes: [
+      '/',
+      '/catalog',
+      '/about',
+    ],
   },
-  // ADD HERE YOUR ROUTES
-]
+}
 
-export default routes
+export default config
 
 ```
 

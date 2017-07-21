@@ -44,26 +44,31 @@ class RenderStaticWebpackPlugin {
     const stats = statsWebpack.toJson(statsOptions)
     const renderToString = createRender(stats)
 
-    this.renderRoutes(renderToString)
+    return this.renderRoutes(renderToString)
   }
 
   renderRoutes(renderToString) {
+    let promise = Promise.resolve()
     this.routes.forEach(route => {
-      try {
-        const content = renderToString(route.location)
-        const filePath = path.resolve(this.outputPath, `.${route.path}`)
-
-        fs.ensureDirSync(path.dirname(filePath))
-        fs.writeFileSync(filePath, content)
-
-        log(`Render route '${route.location}' to page '${route.path}'`)
-      } catch (e) {
-        logError(`Failed to render route '${route.location} to page '${route.path}''`)
-        logError(e)
-      }
+      promise = promise.then(() => this.renderRoute(route, renderToString))
     })
+
+    return promise
   }
 
+  renderRoute(route, renderToString) {
+    return renderToString(route.location).then(content => {
+      const filePath = path.resolve(this.outputPath, `.${route.path}`)
+
+      fs.ensureDirSync(path.dirname(filePath))
+      fs.writeFileSync(filePath, content)
+
+      log(`Render route '${route.location}' to page '${route.path}'`)
+    }).catch(e => {
+      logError(`Failed to render route '${route.location} to page '${route.path}''`)
+      logError(e)
+    })
+  }
 }
 
 export default RenderStaticWebpackPlugin

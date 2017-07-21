@@ -21,12 +21,10 @@ const createAssets = stats => {
   const rootDir = path.resolve(process.cwd())
   const publicPath = config.publicPath.replace(/\/$/, '')
   const paths = flushWebpackRequireWeakIds().map(
-    p => path.relative(rootDir, p).replace(/\\/g, '/')
+    p => path.relative(rootDir, p).replace(/\\/g, '/'),
   )
   const flushedAssets = flushChunks(paths, stats, {
     rootDir,
-    before: ['bootstrap'],
-    after: ['main'],
   })
 
   const assets = {
@@ -46,7 +44,7 @@ const createAssets = stats => {
 }
 
 const createRender = stats => {
-  const cookies = new Cookies()
+  const cookies = new Cookies({})
   const history = createHistory()
   const store = configureStore(history)
 
@@ -56,7 +54,7 @@ const createRender = stats => {
 
   const App = (
     <Provider store={store}>
-      <CookiesProvider>
+      <CookiesProvider cookies={cookies}>
         <ConnectedRouter history={history}>
           {routes}
         </ConnectedRouter>
@@ -67,20 +65,20 @@ const createRender = stats => {
   return location => {
     store.dispatch(replace(location))
 
-    reactTreeWalker(App, () => true)
+    return reactTreeWalker(App, when.loadOnServer).then(() => {
+      const content = ReactDOM.renderToString(App)
+      const html =
+        `<!doctype html>\n${
+          ReactDOM.renderToStaticMarkup(
+            <Html
+              assets={assets}
+              content={content}
+              initialState={JSON.stringify(store.getState())}
+            />,
+          )}`
 
-    const content = ReactDOM.renderToString(App)
-    const html =
-      `<!doctype html>\n${
-        ReactDOM.renderToStaticMarkup(
-          <Html
-            assets={assets}
-            content={content}
-            initialState={JSON.stringify(store.getState())}
-          />
-        )}`
-
-    return html
+      return html
+    })
   }
 }
 

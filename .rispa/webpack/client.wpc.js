@@ -1,17 +1,16 @@
-import { createConfig, env } from '@webpack-blocks/webpack2'
+import { group, env } from '@webpack-blocks/webpack2'
 import config from '@rispa/config'
 import RenderStaticWebpackPlugin from '../../src/RenderStaticWebpackPlugin'
-import routes from '../../routes'
 
-export default () => createConfig([
+export default options => group([
   env('production', [
     () => ({
       plugins: [
-        new RenderStaticWebpackPlugin({
+        options && options.routes ? new RenderStaticWebpackPlugin({
           outputPath: config.outputPath,
-          routes,
-        }),
-      ],
+          routes: options.routes,
+        }) : null,
+      ].filter(Boolean),
     }),
   ]),
 ])
