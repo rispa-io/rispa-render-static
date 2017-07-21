@@ -2,7 +2,7 @@ import { group, env } from '@webpack-blocks/webpack2'
 import config from '@rispa/config'
 import RenderStaticWebpackPlugin from '../../src/RenderStaticWebpackPlugin'
 
-export default (options) => group([
+export default options => group([
   env('production', [
     () => ({
       plugins: [
