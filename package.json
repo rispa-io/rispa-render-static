@@ -1,6 +1,6 @@
 {
   "name": "@rispa/render-static",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "main": "index.js",
   "repository": "https://github.com/rispa-io/rispa-render-static.git",
   "author": "dvpetrov <dvpetrov.main@gmail.com>",
