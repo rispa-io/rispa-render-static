@@ -1,5 +1,7 @@
 # Rispa Render Static [![Build Status](https://api.travis-ci.org/rispa-io/rispa-render-static.svg?branch=master)](https://travis-ci.org/rispa-io/rispa-render-static)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rispa-io/rispa-render-static.svg)](https://greenkeeper.io/)
+
 **Rispa** plugin for static site generation.
 
 Provide an array of paths to be rendered and a matching set of `*.html` files will be rendered in `/build` directory.
